@@ -1,6 +1,7 @@
 {
   "functionName":  "html-to-pdf",
   "handler":        "html-to-pdf.handler",
+  "roleArn": "arn:aws:iam::576892999469:role/lambda_s3_exec_role",
   "description":    "",
   "memorySize":     128,
   "timeout":        10,

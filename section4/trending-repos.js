@@ -3,8 +3,10 @@ var request = require('request')
   , fs      = require('fs')
   ;
 
+var search = process.argv[2] || 'AWS';
+
 var options = {
-  url: 'https://api.github.com/search/repositories?q=AWS+language:javascript&sort=stars&order=desc',
+  url: 'https://api.github.com/search/repositories?q=' + search + ' language:javascript&sort=stars&order=desc',
   headers: {
     'User-Agent': 'request'
   }

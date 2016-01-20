@@ -7,16 +7,40 @@ var wkhtmltopdf = require('wkhtmltopdf')
   , concat      = require('concat-stream')
   ;
 
-// process.env['PATH'] = process.env['PATH'] + ':' + process.env['LAMBDA_TASK_ROOT'];
-require('dotenv').config({path: path.join(__dirname, '.env')});
+process.env['PATH'] = process.env['PATH'] + ':' + process.env['LAMBDA_TASK_ROOT'];
+
+
+var s3;
+
+//use .env file to load permissions to use for Lambda execution, if a .env exists
+if (fs.existsSync(path.join(process.cwd(), '.env'))) {
+  console.log('.env file exists, checking for AWS permission keys...');
+  require('dotenv').load();
+  if (process.env.accessKeyId && process.env.secretAccessKey && process.env.region) {
+    console.log('using .env for Lambda permissions...');
+    s3 = new AWS.Lambda({
+      accessKeyId: process.env.accessKeyId,
+      secretAccessKey: process.env.secretAccessKey,
+      region: process.env.region
+    });
+  }
+  else {
+    console.log('AWS permission keys not found - using default role...');
+    s3 = new AWS.Lambda();
+  }
+}
+else {
+    console.log('No .env file found - using default role...');
+    s3 = new AWS.Lambda();
+}
 
 var creds = {
   accessKeyId: process.env.accessKeyId,
   secretAccessKey: process.env.secretAccessKey,
   region: process.env.region
 };
+
 var s3 = new AWS.S3(creds);
-var sqs = new AWS.SQS(creds);
 
 
 var getS3object = function (event, next) {
