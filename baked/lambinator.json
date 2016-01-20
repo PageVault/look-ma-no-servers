@@ -1,0 +1,53 @@
+{
+  "functionName":  "html-to-pdf",
+  "handler":        "html-to-pdf.handler",
+  "description":    "",
+  "memorySize":     128,
+  "timeout":        10,
+  "dependencies":   [],
+  "testEvents": {
+    "one": {
+      "number": 123,
+      "string": "my-string"
+    },
+    "s3": {
+        "Records": [
+            {
+                "eventVersion": "2.0",
+                "eventSource": "aws:s3",
+                "awsRegion": "us-east-1",
+                "eventTime": "2016-01-18T22:09:36.819Z",
+                "eventName": "ObjectCreated:Put",
+                "userIdentity": {
+                    "principalId": "AWS:AIDAJMGUW3QEKHOYYETEQ"
+                },
+                "requestParameters": {
+                    "sourceIPAddress": "71.201.112.90"
+                },
+                "responseElements": {
+                    "x-amz-request-id": "D56E70157B80F6FE",
+                    "x-amz-id-2": "e1MLVMSRuJ7jLbM1FR+zLOcgymK8Vpm9AKx9VwTNijuPPOEoYW/HEokmgVPh0owy8Gi6pj6rgRg="
+                },
+                "s3": {
+                    "s3SchemaVersion": "1.0",
+                    "configurationId": "af1e0448-ccc8-41e5-b4b4-06ff66bf343f",
+                    "bucket": {
+                        "name": "look-ma-no-servers",
+                        "ownerIdentity": {
+                            "principalId": "A29YMVL52QY4TO"
+                        },
+                        "arn": "arn:aws:s3:::look-ma-no-servers"
+                    },
+                    "object": {
+                        "key": "repos.html",
+                        "size": 192720,
+                        "eTag": "e02368c7a561375092fb8dbb59dfbb73",
+                        "sequencer": "00569D62A05F2B9D42"
+                    }
+                }
+            }
+        ]
+    }
+  },
+  "defaultEvent": "s3"
+}
